@@ -1,0 +1,43 @@
+:root {
+    --grid-border-color: #3882F6;
+    --grid-square-color-light: #d6e1f1;
+    --grid-square-color-dark: #1F2937;
+    --white: #f9faf8;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+    border-collapse: collapse;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+}
+
+.grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 600px;
+    border-radius: 10%;
+    border: 2px solid var(--grid-border-color);
+}
+
+.grid-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+    border-radius: 10%;
+}
+
+.grid-square {
+    flex: 0 1 calc(100% / 16);
+    border: 0.2px dashed var(--white);
+    background-color: var(--grid-square-color-light);
+}
