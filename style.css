@@ -3,6 +3,13 @@
     --grid-square-color-light: #d6e1f1;
     --grid-square-color-dark: #1F2937;
     --white: #f9faf8;
+    --hatching: repeating-linear-gradient(
+        -55deg,
+        var(--grid-square-color-light),
+        var(--grid-square-color-light) 4%,
+        var(--grid-border-color) 4%,
+        var(--grid-border-color) 8%
+    );
 }
 
 *, ::after, ::before {
@@ -40,4 +47,8 @@ body {
     flex: 0 1 calc(100% / 16);
     border: 0.2px dashed var(--white);
     background-color: var(--grid-square-color-light);
+}
+
+.hatched {
+    background: var(--hatching);
 }

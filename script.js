@@ -2,7 +2,12 @@ const gridDimensions = 16 * 16;
 
 createGrid()
 
-
+const gridSquares = document.querySelectorAll('.grid-square');
+gridSquares.forEach((square) => {
+    square.addEventListener('mouseover', () => {
+        square.classList.add('hatched');
+    })
+})
 
 function createGrid() {
     const grid = document.createElement('div');
