@@ -1,5 +1,7 @@
-createHeader()
-createResetBtn()
+createHeader();
+createBtnContainer();
+createResetBtn();
+createRainbowModeBtn();
 
 function getUserDimensions() {
     let result = +prompt('Please, enter number of squares per side (max: 100)');
@@ -16,12 +18,18 @@ function createHeader() {
     document.body.appendChild(header);
 }
 
+function createBtnContainer() {
+    const container = document.createElement('div');
+    container.classList.add('container');
+    document.body.appendChild(container);
+}
+
 function createResetBtn() {
     const resetBtn = document.createElement('button');
     resetBtn.textContent = 'Create New Grid!';
-    resetBtn.classList.add('reset-btn');
+    resetBtn.classList.add('btn');
     resetBtn.onclick = resetGrid;
-    document.body.appendChild(resetBtn);
+    document.querySelector('.container').appendChild(resetBtn);
 }
 
 function resetGrid() {
@@ -30,6 +38,32 @@ function resetGrid() {
         document.body.removeChild(grid);
     }
     createGrid();
+}
+
+function createRainbowModeBtn() {
+    const rainbowBtn = document.createElement('button');
+    rainbowBtn.textContent = 'Toggle Rainbow Mode';
+    rainbowBtn.classList.add('btn');
+    rainbowBtn.onclick = rainbowMode;
+    document.querySelector('.container').appendChild(rainbowBtn);
+}
+
+function rainbowMode() {
+    const gridSquares = document.querySelectorAll('.grid-square');
+    if (gridSquares) {
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+            gridSquares.forEach((square) => {
+                square.removeEventListener('mouseover', addHatchedCSS);
+                square.addEventListener('mouseover', randomColorBackground);
+            })
+        } else {
+            gridSquares.forEach((square) => {
+                square.removeEventListener('mouseover', randomColorBackground);
+                square.addEventListener('mouseover', addHatchedCSS);
+            })
+        }
+    }
 }
 
 function createGrid() {
@@ -49,10 +83,16 @@ function createGrid() {
             border: 0.2px dashed var(--white);
             background-color: var(--grid-square-color-light);
         `;
-        gridSquare.addEventListener('mouseover', () => {
-            gridSquare.classList.add('hatched');
-        });
+        gridSquare.addEventListener('mouseover', addHatchedCSS);
         gridWrapper.appendChild(gridSquare);
     }
     header.after(grid);
+}
+
+function addHatchedCSS() {
+    this.style.background = `var(--hatching)`;
+}
+
+function randomColorBackground() {
+    this.style.background = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 }
