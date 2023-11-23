@@ -34,6 +34,11 @@ function createGrid() {
     for (let i = 0; i < gridDimensions * gridDimensions; i++) {
         const gridSquare = document.createElement('div');
         gridSquare.classList.add('grid-square');
+        gridSquare.style.cssText = `
+            flex: 0 1 calc(100% / ${gridDimensions});
+            border: 0.2px dashed var(--white);
+            background-color: var(--grid-square-color-light);
+        `
 
         gridWrapper.appendChild(gridSquare);
     }
