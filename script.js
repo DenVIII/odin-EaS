@@ -1,13 +1,5 @@
-const gridDimensions = getUserDimensions();
 createHeader()
-createGrid()
-
-const gridSquares = document.querySelectorAll('.grid-square');
-gridSquares.forEach((square) => {
-    square.addEventListener('mouseover', () => {
-        square.classList.add('hatched');
-    })
-})
+createResetBtn()
 
 function getUserDimensions() {
     let result = +prompt('Please, enter number of squares per side (max: 100)');
@@ -24,9 +16,27 @@ function createHeader() {
     document.body.appendChild(header);
 }
 
+function createResetBtn() {
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Create New Grid!';
+    resetBtn.classList.add('reset-btn');
+    resetBtn.onclick = resetGrid;
+    document.body.appendChild(resetBtn);
+}
+
+function resetGrid() {
+    const grid = document.querySelector('.grid');
+    if (grid) {
+        document.body.removeChild(grid);
+    }
+    createGrid();
+}
+
 function createGrid() {
     const grid = document.createElement('div');
+    const header = document.querySelector('.header');
     const gridWrapper = document.createElement('div');
+    const gridDimensions = getUserDimensions();
     gridWrapper.classList.add('grid-wrapper');
     grid.classList.add('grid');
     grid.appendChild(gridWrapper);
@@ -38,9 +48,11 @@ function createGrid() {
             flex: 0 1 calc(100% / ${gridDimensions});
             border: 0.2px dashed var(--white);
             background-color: var(--grid-square-color-light);
-        `
-
+        `;
+        gridSquare.addEventListener('mouseover', () => {
+            gridSquare.classList.add('hatched');
+        });
         gridWrapper.appendChild(gridSquare);
     }
-    document.body.appendChild(grid);
+    header.after(grid);
 }
