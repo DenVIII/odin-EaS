@@ -1,5 +1,5 @@
-const gridDimensions = 16 * 16;
-
+const gridDimensions = getUserDimensions();
+createHeader()
 createGrid()
 
 const gridSquares = document.querySelectorAll('.grid-square');
@@ -9,6 +9,21 @@ gridSquares.forEach((square) => {
     })
 })
 
+function getUserDimensions() {
+    let result = +prompt('Please, enter number of squares per side (max: 100)');
+    while (typeof result !== 'number' || result > 100 || isNaN(result)) {
+        result = +prompt('Not a valid number. Please, enter number of squares per side (max: 100)');
+    } 
+    return result;
+}
+
+function createHeader() {
+    const header = document.createElement('h1');
+    header.textContent = 'Etch-a-Sketch!';
+    header.classList.add('header');
+    document.body.appendChild(header);
+}
+
 function createGrid() {
     const grid = document.createElement('div');
     const gridWrapper = document.createElement('div');
@@ -16,7 +31,7 @@ function createGrid() {
     grid.classList.add('grid');
     grid.appendChild(gridWrapper);
 
-    for (let i = 0; i < gridDimensions; i++) {
+    for (let i = 0; i < gridDimensions * gridDimensions; i++) {
         const gridSquare = document.createElement('div');
         gridSquare.classList.add('grid-square');
 
